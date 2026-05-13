@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Ishi ♡</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #fdf8f3;
+    --blush: #f5cdd9;
+    --rose: #e8a0b4;
+    --deep-rose: #c9687e;
+    --lilac: #d8c4e8;
+    --soft-lavender: #ede6f6;
+    --peach: #f8ddd0;
+    --warm-tan: #e8c9a8;
+    --text-dark: #3d2030;
+    --text-mid: #7a4560;
+    --text-soft: #b07890;
+  }
+
+  body {
+    background: var(--cream);
+    font-family: 'Lora', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  .bg-layer {
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 20%, #f9e8f0 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 85% 80%, #e8e0f5 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, #fef0e8 0%, transparent 70%),
+      var(--cream);
+    z-index: 0;
+  }
+
+  .sticker {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatSticker linear infinite;
+    will-change: transform;
+    user-select: none;
+  }
+
+  @keyframes floatSticker {
+    0%   { transform: translateY(0px) rotate(0deg); }
+    25%  { transform: translateY(-14px) rotate(3deg); }
+    50%  { transform: translateY(-6px) rotate(-2deg); }
+    75%  { transform: translateY(-18px) rotate(2deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+  }
+
+  .stage {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.70);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(255,255,255,0.85);
+    border-radius: 32px;
+    padding: 4rem 3.5rem 3.5rem;
+    max-width: 640px;
+    width: 100%;
+    text-align: center;
+    box-shadow:
+      0 8px 48px rgba(200, 130, 160, 0.12),
+      0 2px 12px rgba(200, 130, 160, 0.08),
+      inset 0 1px 0 rgba(255,255,255,0.9);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f5cdd9, #d8c4e8, #f8ddd0, #f5cdd9);
+    border-radius: 32px 32px 0 0;
+  }
+
+  .card-deco {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    animation: floatSticker linear infinite;
+  }
+
+  .deco-tl { top: 16px; left: 20px; font-size: 28px; animation-duration: 5.2s; }
+  .deco-tr { top: 16px; right: 20px; font-size: 24px; animation-duration: 4.7s; animation-delay: -1.5s; }
+  .deco-bl { bottom: 20px; left: 24px; font-size: 22px; animation-duration: 6.1s; animation-delay: -3s; }
+  .deco-br { bottom: 20px; right: 24px; font-size: 26px; animation-duration: 5.5s; animation-delay: -2s; }
+
+  .eyebrow {
+    font-family: 'Lora', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-bottom: 1.6rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.2s forwards;
+  }
+
+  .heading {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: clamp(2.1rem, 5.5vw, 3.2rem);
+    color: var(--text-dark);
+    line-height: 1.25;
+    margin-bottom: 1.4rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.45s forwards;
+  }
+
+  .heading em {
+    font-style: normal;
+    color: var(--deep-rose);
+  }
+
+  .subtext {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    line-height: 1.85;
+    max-width: 460px;
+    margin: 0 auto 2.6rem;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.7s forwards;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 auto 2.6rem;
+    width: fit-content;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.9s forwards;
+  }
+
+  .divider-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose));
+  }
+  .divider-line.right { background: linear-gradient(90deg, var(--rose), transparent); }
+  .divider-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rose); }
+
+  .reveal-btn {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    color: white;
+    background: linear-gradient(135deg, #d9849e 0%, #c27097 50%, #a85a80 100%);
+    border: none;
+    border-radius: 60px;
+    padding: 1rem 2.8rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 28px rgba(180, 80, 120, 0.30), 0 2px 8px rgba(180, 80, 120, 0.20);
+    opacity: 0;
+    animation: fadeUp 1s ease 1.1s forwards;
+  }
+
+  .reveal-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    border-radius: inherit;
+  }
+
+  .reveal-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 12px 36px rgba(180, 80, 120, 0.38), 0 4px 12px rgba(180, 80, 120, 0.25);
+  }
+
+  .reveal-btn:active { transform: translateY(-1px) scale(1.01); }
+
+  .reveal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+  }
+
+  .reveal-overlay.active {
+    pointer-events: all;
+    visibility: visible;
+  }
+
+  .burst {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .burst-circle {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  .confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    opacity: 0;
+    animation: none;
+  }
+
+  @keyframes confettiFall {
+    0%   { transform: translateY(-60px) rotate(0deg) scale(1); opacity: 1; }
+    80%  { opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg) scale(0.6); opacity: 0; }
+  }
+
+  .reveal-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    transform: scale(0.4) translateY(40px);
+    opacity: 0;
+    transition: transform 0.7s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s ease;
+  }
+
+  .reveal-content.show {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+
+  .reveal-card {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(32px);
+    border: 2px solid rgba(255,255,255,0.9);
+    border-radius: 36px;
+    padding: 4rem 5rem;
+    box-shadow:
+      0 32px 80px rgba(190, 100, 140, 0.22),
+      0 8px 24px rgba(190, 100, 140, 0.14),
+      inset 0 1px 0 rgba(255,255,255,1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reveal-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #f5cdd9, #d8c4e8, #ffd6a5, #f5cdd9);
+    background-size: 200%;
+    animation: shimmer 3s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  .reveal-eyebrow {
+    font-family: 'Lora', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-bottom: 1.2rem;
+  }
+
+  .reveal-date {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 12vw, 7rem);
+    color: var(--text-dark);
+    line-height: 0.95;
+    margin-bottom: 0.6rem;
+  }
+
+  .reveal-date span {
+    display: block;
+    color: var(--deep-rose);
+    font-style: italic;
+  }
+
+  .reveal-name {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: var(--text-mid);
+    margin-bottom: 1.8rem;
+  }
+
+  .reveal-tagline {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--text-soft);
+    line-height: 1.7;
+    max-width: 340px;
+    margin: 0 auto 1.8rem;
+  }
+
+  .sticker-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.8rem;
+  }
+
+  .close-hint {
+    margin-top: 2rem;
+    font-family: 'Lora', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--text-soft);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .close-hint:hover { color: var(--deep-rose); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes burstExpand {
+    0%   { transform: scale(0); opacity: 0.9; }
+    60%  { transform: scale(1.4); opacity: 0.5; }
+    100% { transform: scale(2); opacity: 0; }
+  }
+
+  @keyframes drift {
+    0%   { transform: translateY(0) rotate(0deg) scale(1); }
+    33%  { transform: translateY(-20px) rotate(5deg) scale(1.05); }
+    66%  { transform: translateY(-8px) rotate(-4deg) scale(0.97); }
+    100% { transform: translateY(0) rotate(0deg) scale(1); }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div id="ambient-stickers"></div>
+
+<div class="stage">
+  <div class="card">
+    <div class="card-deco deco-tl">🌸</div>
+    <div class="card-deco deco-tr">🎀</div>
+    <div class="card-deco deco-bl">🌷</div>
+    <div class="card-deco deco-br">✨</div>
+
+    <p class="eyebrow">i know u dont have time right now but i promise ,will take only 2-3 seconds.</p>
+
+    <h1 class="heading">
+      khair tumne toh kiya nahi wish but tension not , my love<br>
+      <em>m hoon karne k liye</em>
+    </h1>
+
+    <p class="subtext">
+      aaj pata h kya h?<br>
+      aaj woh h jo m tumhari hu—<br>
+      I think you'll like what's inside.
+    </p>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-dot"></div>
+      <div class="divider-line right"></div>
+    </div>
+
+    <button class="reveal-btn" onclick="triggerReveal()">
+      please click me , pleaseeeeee
+    </button>
+  </div>
+</div>
+
+<div class="reveal-overlay" id="revealOverlay" onclick="handleOverlayClick(event)">
+  <div class="burst" id="burst"></div>
+  <div id="confettiContainer"></div>
+
+  <div class="reveal-content" id="revealContent">
+    <div class="reveal-card">
+      <p class="reveal-eyebrow">yeyyyyyyyeyeyyeyeyeyeyeyeyeye</p>
+      <div class="reveal-date">
+        MAY
+        <span>13</span>
+      </div>
+      <div class="reveal-name">(tu meri)</div>
+      <p class="reveal-tagline">
+        itni cringe nahi hu mummy kasam<br>
+        But bas mann kar gaya..... ab bye , padhlo ab m kal 
+      </p>
+      <div class="sticker-row">
+        <span style="display:inline-block; animation: drift 4.1s ease-in-out infinite;">🌸</span>
+        <span style="display:inline-block; animation: drift 3.7s ease-in-out infinite; animation-delay: -0.8s;">🌷</span>
+        <span style="display:inline-block; animation: drift 4.5s ease-in-out infinite; animation-delay: -1.6s;">🎀</span>
+        <span style="display:inline-block; animation: drift 3.9s ease-in-out infinite; animation-delay: -2.4s;">✨</span>
+        <span style="display:inline-block; animation: drift 4.3s ease-in-out infinite; animation-delay: -3.2s;">🌸</span>
+      </div>
+    </div>
+    <p class="close-hint" onclick="closeReveal()">tap anywhere to close</p>
+  </div>
+</div>
+
+<script>
+  const stickerEmojis = ['🌸', '🌷', '🎀', '✨', '🌼', '🪷', '💮', '🌺', '🫧', '🍒'];
+  const container = document.getElementById('ambient-stickers');
+
+  for (let i = 0; i < 14; i++) {
+    const el = document.createElement('div');
+    el.className = 'sticker';
+    el.textContent = stickerEmojis[i % stickerEmojis.length];
+    const size = Math.random() * 20 + 18;
+    const left = Math.random() * 100;
+    const top = Math.random() * 100;
+    const dur = Math.random() * 4 + 4;
+    const delay = -Math.random() * 8;
+    el.style.cssText = `
+      left: ${left}%; top: ${top}%;
+      font-size: ${size}px;
+      animation-duration: ${dur}s;
+      animation-delay: ${delay}s;
+      opacity: ${Math.random() * 0.25 + 0.10};
+    `;
+    container.appendChild(el);
+  }
+
+  function spawnConfetti() {
+    const confContainer = document.getElementById('confettiContainer');
+    const colors = ['#f5cdd9','#d8c4e8','#f8ddd0','#ffd6a5','#e8a0b4','#c9687e','#b0d4e8','#b8e8c8'];
+    for (let i = 0; i < 80; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const x = Math.random() * 100;
+      const delay = Math.random() * 0.8;
+      const dur = Math.random() * 1.5 + 1.5;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const rotate = Math.random() * 360;
+      const isCircle = Math.random() > 0.5;
+      piece.style.cssText = `
+        left: ${x}%; top: -10px;
+        background: ${color};
+        border-radius: ${isCircle ? '50%' : '2px'};
+        width: ${Math.random() * 8 + 5}px;
+        height: ${Math.random() * 8 + 5}px;
+        transform: rotate(${rotate}deg);
+        animation: confettiFall ${dur}s ease ${delay}s forwards;
+        opacity: 0;
+      `;
+      confContainer.appendChild(piece);
+    }
+    setTimeout(() => { confContainer.innerHTML = ''; }, 4000);
+  }
+
+  function spawnBurst() {
+    const burst = document.getElementById('burst');
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    const colors = ['#f5cdd9','#d8c4e8','#f8ddd0','#e8a0b4'];
+
+    for (let i = 0; i < 4; i++) {
+      const circle = document.createElement('div');
+      circle.className = 'burst-circle';
+      const size = 120 + i * 180;
+      circle.style.cssText = `
+        width: ${size}px; height: ${size}px;
+        left: ${cx - size/2}px; top: ${cy - size/2}px;
+        background: ${colors[i]};
+        animation: burstExpand ${0.6 + i * 0.15}s ease ${i * 0.08}s forwards;
+      `;
+      burst.appendChild(circle);
+    }
+    setTimeout(() => { burst.innerHTML = ''; }, 2000);
+  }
+
+  function triggerReveal() {
+    const overlay = document.getElementById('revealOverlay');
+    const content = document.getElementById('revealContent');
+
+    overlay.style.opacity = '1';
+    overlay.classList.add('active');
+
+    spawnBurst();
+    spawnConfetti();
+
+    setTimeout(() => {
+      content.classList.add('show');
+    }, 180);
+
+    document.querySelector('.stage').style.filter = 'blur(4px)';
+  }
+
+  function closeReveal() {
+    const overlay = document.getElementById('revealOverlay');
+    const content = document.getElementById('revealContent');
+
+    content.classList.remove('show');
+    overlay.style.opacity = '0';
+
+    setTimeout(() => {
+      overlay.classList.remove('active');
+      document.querySelector('.stage').style.filter = '';
+    }, 400);
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('revealOverlay') || e.target === document.getElementById('burst')) {
+      closeReveal();
+    }
+  }
+
+  const sparkleColors = ['#f5cdd9','#d8c4e8','#e8a0b4','#ffd6a5'];
+  let lastSparkle = 0;
+  document.addEventListener('mousemove', (e) => {
+    const now = Date.now();
+    if (now - lastSparkle < 60) return;
+    lastSparkle = now;
+
+    const spark = document.createElement('div');
+    spark.style.cssText = `
+      position: fixed;
+      left: ${e.clientX - 4}px;
+      top: ${e.clientY - 4}px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: ${sparkleColors[Math.floor(Math.random() * sparkleColors.length)]};
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+      opacity: 0.7;
+    `;
+    document.body.appendChild(spark);
+    requestAnimationFrame(() => {
+      spark.style.transform = `translate(${(Math.random()-0.5)*20}px, ${(Math.random()-0.5)*20}px) scale(0)`;
+      spark.style.opacity = '0';
+    });
+    setTimeout(() => spark.remove(), 600);
+  });
+</script>
+</body>
+</html>
